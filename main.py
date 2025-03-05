@@ -1,28 +1,15 @@
 import asyncio
 from aiogram import Bot, Dispatcher
-from aiogram.types import Message
-from aiogram.filters import Command
 from config import settings
-from database import get_db
+from handlers import commands
 
 # Инициализация бота и диспетчера
 bot = Bot(token=settings.BOT_TOKEN)
 dp = Dispatcher()
 
-
-# Команда /start
-@dp.message(Command("start"))
-async def start(message: Message):
-    await message.answer("Добро пожаловать в D&D бота! Используйте /help для списка команд.")
+dp.include_router(commands.router)
 
 
-# Команда /help
-@dp.message(Command("help"))
-async def help_command(message: Message):
-    await message.answer("Список команд:\n/start - Начать\n/help - Помощь")
-
-
-# Запуск бота
 async def main():
     await dp.start_polling(bot)
 

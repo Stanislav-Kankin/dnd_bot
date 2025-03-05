@@ -9,7 +9,7 @@ router = Router()
 
 @router.message(Command("register"))
 async def register_user(message: Message):
-    async with get_db() as session:
+    async for session in get_db():  # Используем асинхронный генератор
         user = await CharacterManager.get_user(session, message.from_user.id)
         if not user:
             user = await CharacterManager.create_user(
