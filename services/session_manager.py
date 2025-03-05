@@ -1,6 +1,6 @@
 from sqlalchemy import select
 from sqlalchemy.ext.asyncio import AsyncSession
-from database.models import GameSession, User
+from database.models import GameSession
 
 
 class SessionManager:
