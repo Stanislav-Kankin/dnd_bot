@@ -1,7 +1,7 @@
 import asyncio
 from aiogram import Bot, Dispatcher
 from config import settings
-from handlers import commands
+from bot.handlers import commands
 
 # Инициализация бота и диспетчера
 bot = Bot(token=settings.BOT_TOKEN)
