@@ -7,6 +7,20 @@ from database import get_db
 router = Router()
 
 
+@router.message(Command("start"))
+async def start_command(message: Message):
+    """Обработчик команды /start."""
+    instructions = (
+        "Добро пожаловать в D&D бота!\n\n"
+        "Доступные команды:\n"
+        "/start - Начало работы\n"
+        "/help - Помощь\n"
+        "/register - Регистрация\n"
+        "/dm - Режим Dungeon Master\n"
+    )
+    await message.answer(instructions)
+
+
 @router.message(Command("register"))
 async def register_user(message: Message):
     async for session in get_db():  # Используем асинхронный генератор
