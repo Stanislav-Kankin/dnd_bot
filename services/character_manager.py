@@ -30,3 +30,9 @@ class CharacterManager:
         await session.commit()
         await session.refresh(user)
         return character_data
+
+    @staticmethod
+    async def get_user(session: AsyncSession, telegram_id: int) -> User:
+        """Получение пользователя по telegram_id."""
+        result = await session.execute(select(User).where(User.telegram_id == telegram_id))
+        return result.scalars().first()

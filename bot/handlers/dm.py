@@ -17,6 +17,7 @@ async def dm_command(message: Message):
     keyboard = InlineKeyboardMarkup(inline_keyboard=[
         [InlineKeyboardButton(text="Создать сессию 🖋️", callback_data="create_session")],
         [InlineKeyboardButton(text="Добавить игрока 🙋‍♂️", callback_data="add_player")],
+        [InlineKeyboardButton(text="Добавить монстра 🐉", callback_data="add_monster")],
         [InlineKeyboardButton(text="Управление инициативой ⚔️", callback_data="manage_initiative")]
     ])
     await message.answer(
@@ -38,7 +39,6 @@ async def create_session(callback_query: CallbackQuery):
 async def add_player(callback_query: CallbackQuery):
     """Добавление игрока в сессию."""
     await callback_query.message.answer("Введите ID игрока:")
-    # Здесь можно добавить логику для ожидания ввода ID игрока
 
 
 @router.callback_query(lambda c: c.data == "manage_initiative")
