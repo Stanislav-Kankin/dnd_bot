@@ -11,6 +11,13 @@ from database import get_db
 router = Router()
 
 
+class MonsterCreation(StatesGroup):
+    name = State()
+    hp = State()
+    ac = State()
+    attack_dice = State()
+
+
 @router.message(Command("dm"))
 async def dm_command(message: Message):
     """Обработчик команды /dm."""
@@ -51,26 +58,6 @@ async def manage_initiative(callback_query: CallbackQuery):
             await callback_query.message.answer(f"Текущая инициатива:\n{initiative_order}")
         else:
             await callback_query.message.answer("Сессия не найдена.")
-
-
-@router.callback_query(lambda c: c.data == "add_monster")
-async def add_monster(callback_query: CallbackQuery):
-    """Добавление монстра."""
-    monster_data = {
-        "name": "Гоблин",
-        "hp": 10,
-        "ac": 15
-    }
-    async for session in get_db():
-        await SessionManager.add_monster(session, callback_query.from_user.id, monster_data)
-        await callback_query.message.answer(f"Монстр {monster_data['name']} добавлен!")
-
-
-class MonsterCreation(StatesGroup):
-    name = State()
-    hp = State()
-    ac = State()
-    attack_dice = State()
 
 
 @router.callback_query(lambda c: c.data == "add_monster")
