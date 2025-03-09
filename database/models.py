@@ -20,3 +20,15 @@ class GameSession(Base):
     name = Column(String(100), nullable=False)  # Название сессии
     players = Column(JSON, default=[])  # Список игроков (их telegram_id)
     current_initiative = Column(JSON, default=[])  # Текущая инициатива
+
+
+class Character(Base):
+    __tablename__ = 'characters'
+    id = Column(Integer, primary_key=True)
+    user_id = Column(Integer, ForeignKey('users.id'), nullable=False)
+    name = Column(String(50), nullable=False)
+    class_ = Column(String(50), nullable=False)
+    level = Column(Integer, nullable=False)
+    stats = Column(JSON, nullable=False)  # Характеристики (сила, ловкость и т.д.)
+    inventory = Column(JSON, nullable=True)  # Инвентарь
+    notes = Column(JSON, nullable=True)  # Заметки
